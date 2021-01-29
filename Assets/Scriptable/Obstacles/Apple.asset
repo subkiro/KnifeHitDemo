@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88432f98c773c74408f171045de2fde3, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  id: 0
+  Name: Apple
+  SpownChance: 25
+  Prefab: {fileID: 253147452248190024, guid: ec9d35ab6006f284f896581e49ee98ea, type: 3}
+  VFX_Explosion: {fileID: 877635044279737323, guid: 00905747e853cbf42a4eeeed7b3a0081, type: 3}
