@@ -70,11 +70,8 @@ public class KnifeController : MonoBehaviour
             InitKnife();
             --knifeCounter;
         }
-        if (knifeCounter == 0)
-        {
+        if (knifeCounter == 0) {
             isReady = false;
-            EventManagerController.instance.RoundFinished();
-            return;
         }
 
     }

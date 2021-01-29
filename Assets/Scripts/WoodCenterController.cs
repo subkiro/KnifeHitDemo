@@ -7,32 +7,35 @@ public class WoodCenterController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private GameObject WoodCenter;
-    [SerializeField] private GameObject WoodFracturedPrefab;
+    [SerializeField] public GameObject WoodFracturedPrefab;
     [SerializeField] private ArrayScriptable BonusObstacleList;
     [SerializeField] private ArrayScriptable KnifesObstacleList;
+    public float fieldOfImpact = 1.22f;
     public WoodCenterObject wood;
     public static WoodCenterController instance;
     private GameObject spawnObj;
     private void Awake()
     {
         instance = this;
+        
     }
 
 
     void Start()
     {
 
-        EventManagerController.instance.RoundFinishedAction += ExplodeWood;
+        EventManagerController.instance.WoodBrokeAction += ExplodeWood;
         EventManagerController.instance.RoundStartAction += Init;
         EventManagerController.instance.LostAction += DeleteWood;
     }
 
     public void Init()
     {
-        GameObject woodObj = Instantiate(WoodCenter,this.transform);
-        wood = woodObj.GetComponent<WoodCenterObject>();
+        
         CreateArray(28);
-        wood.ShowVfx();
+
+
+       
     }
 
 
@@ -40,10 +43,10 @@ public class WoodCenterController : MonoBehaviour
 
 
     public void ExplodeWood() {
-        EventManagerController.instance.WoodBroke();
+
         Instantiate(WoodFracturedPrefab, this.transform);
-        wood.Explode();
-        
+        Camera.main.transform.DOShakeScale(1).OnComplete(() => Menu.instance.ShowUI(0));
+
 
     }
 
@@ -63,9 +66,9 @@ public class WoodCenterController : MonoBehaviour
         float[] rotations = new float[numberOfPosition];
 
 
-        float radius = wood.GetComponent<WoodCenterObject>().fieldOfImpact;
+        float radius = fieldOfImpact;
         float angleStep = (360f / (numberOfPosition));
-        Vector2 center = wood.transform.position;
+        Vector2 center = transform.position;
         for (int i = 0; i < numberOfPosition; i++)
             {
                 possitions[i] = center + Subkiro.rotate(Vector2.up, angleStep * i)*radius;
@@ -78,6 +81,10 @@ public class WoodCenterController : MonoBehaviour
 
 
     public void CreateObstacle(Vector2[]  pos, float[] angle) {
+
+        GameObject woodObj = Instantiate(WoodCenter, this.transform);
+        wood = woodObj.GetComponent<WoodCenterObject>();
+        
 
         int[] randArray = Subkiro.GetRandomArray(Random.Range(2, 4), pos.Length);
         
@@ -99,8 +106,7 @@ public class WoodCenterController : MonoBehaviour
 
             if (spawnObj != null)
             {
-               
-
+         
                 spawnObj.transform.SetParent ( wood.transform);
                 spawnObj.transform.position = pos[randArray[i]];
                 spawnObj.transform.rotation = Quaternion.identity;
@@ -110,14 +116,18 @@ public class WoodCenterController : MonoBehaviour
 
         }
 
-       
-       }
+        wood.ShowVfx();
+    }
 
     private void OnDisable()
     {
-        EventManagerController.instance.RoundFinishedAction -= ExplodeWood;
+        EventManagerController.instance.WoodBrokeAction -= ExplodeWood;
         EventManagerController.instance.RoundStartAction -= Init;
         EventManagerController.instance.LostAction -= DeleteWood;
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, fieldOfImpact);
+    }
 }

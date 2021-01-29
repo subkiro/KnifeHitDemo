@@ -18,6 +18,7 @@ public class RestrtUI : MonoBehaviour
     }
     public void Init()
     {
+        
         this.knifes.text = ScoreSystem._instance.currentScore.ToString();
         this.stage.text = ScoreSystem._instance.currentStage.ToString();
 
@@ -25,11 +26,14 @@ public class RestrtUI : MonoBehaviour
 
     void Restart() {
         ScoreSystem._instance.ResetCurrentStage();
-        EventManagerController.instance.RoundStart();
-        GetComponent<UIWindowAnimations>().Hide();
+        GetComponent<UIWindowAnimations>().Hide(()=> SendEvents());
         Init();
 
 
+    }
+
+    public void SendEvents() {
+        EventManagerController.instance.RoundStart();
     }
     private void OnEnable()
     {

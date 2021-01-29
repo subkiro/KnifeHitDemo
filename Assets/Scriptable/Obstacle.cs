@@ -8,18 +8,18 @@ public class Obstacle : MonoBehaviour {
     public string id;
     public string name;
     private GameObject VFX_Explosion;
-    private Rigidbody2D rb;
+  
 
 
     private void Awake()
     {
-        DeactivateCollision(1, false);
+       
+        
     }
     public void InitVisuals(string id,string name, GameObject vfx) {
         this.VFX_Explosion = vfx;
         this.id = id;
         this.name = name;
-        rb = GetComponent<Rigidbody2D>();
       
     }
 
@@ -40,10 +40,10 @@ public class Obstacle : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Knife" && this.transform.tag!="Knife") {
+        if (collision.transform.tag == "Knife" && this.transform.tag!="Knife") {
             EventManagerController.instance.BonusHit();
             DestroySelf();
         }
@@ -56,28 +56,25 @@ public class Obstacle : MonoBehaviour {
     public void DestroyEvent()
     {
         transform.SetParent(null);
-
-        DeactivateCollision(1, false);
-        this.rb.AddTorque(Random.Range(-360, 360) * 0.01f, ForceMode2D.Impulse);
-        this.rb.AddForce(new Vector2(Random.Range(0, 1), Random.Range(0, 1)) * 10f, ForceMode2D.Impulse);
-        this.rb.AddForce((transform.position - WoodCenterController.instance.transform.position).normalized * 200);
+        if (this.transform.tag == "Knife")
+        {           
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.AddTorque(Random.Range(-360, 360) * 0.01f, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(Random.Range(0, 1), Random.Range(0, 1)) * 10f, ForceMode2D.Impulse);
+            rb.AddForce((transform.position - WoodCenterController.instance.transform.position).normalized * 200);
+        }
+       
+        DeactivateCollision(false);
         this.DestroyAfterDelay(3f);
 
     }
 
 
-    public void DeactivateCollision(float gravity, bool kinematic, float lDrag = 0f, float ADrag = 0.05f, float mass = 1f, bool collision = false)
+    public void DeactivateCollision(bool collision = false)
     {
-            if (rb == null) { return; }
-            rb.mass = mass;
-            rb.drag = lDrag;
-            rb.angularDrag = lDrag;
-            rb.gravityScale = gravity;
-            rb.isKinematic = kinematic;
-            rb.drag = 1;
-
-            CircleCollider2D[] colliders = GetComponents<CircleCollider2D>();
-            foreach (CircleCollider2D collider in colliders)
+           
+            BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+            foreach (BoxCollider2D collider in colliders)
             {
                 collider.enabled = collision;
             }

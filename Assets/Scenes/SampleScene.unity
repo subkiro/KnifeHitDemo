@@ -444,6 +444,7 @@ MonoBehaviour:
   WoodFracturedPrefab: {fileID: 7614595215895576462, guid: 3d208336447e31e4484d3fc2b1732b8d, type: 3}
   BonusObstacleList: {fileID: 11400000, guid: 451b9d5638ee3bc47bab6403f9a96d8a, type: 2}
   KnifesObstacleList: {fileID: 11400000, guid: 313680c7d41f1b048991c16010c88d58, type: 2}
+  fieldOfImpact: -1.22
   wood: {fileID: 0}
 --- !u!1 &356458631
 GameObject:
@@ -652,7 +653,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -3302,7 +3303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.48828125, y: 0.01953125}
+  m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 147, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1702964209

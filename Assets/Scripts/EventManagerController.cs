@@ -27,35 +27,41 @@ public class EventManagerController : MonoBehaviour
         
     }
     public void RoundFinished() {
+        Debug.Log("RoundFinished");
         RoundFinishedAction?.Invoke();
     }
     public void RoundStart()
     {
-        Debug.Log("Round Started");
+        Debug.Log("RoundStart");
         RoundStartAction?.Invoke();
     }
 
     public void ClearTrush()
     {
+        Debug.Log("ClearTrush");
         ClearAllTrushAction?.Invoke();
     }
     public void Lost()
     {
+        Debug.Log("Round Lost");
         LostAction?.Invoke();
     }
 
-    public void BonusHit() { 
+    public void BonusHit() {
+        Debug.Log("BonusHit");
         BonusHitAction?.Invoke();
     }
 
 
     public void HitWood()
     {
+        Debug.Log("HitWood");
         HitWoodAction?.Invoke();
 
     }  
     public void WoodBroke()
         {
-            WoodBrokeAction?.Invoke();
+        Debug.Log("WoodBroke");
+        WoodBrokeAction?.Invoke();
         }
     }
