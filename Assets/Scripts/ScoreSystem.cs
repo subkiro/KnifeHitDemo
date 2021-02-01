@@ -10,7 +10,7 @@ public class ScoreSystem : MonoBehaviour
     public int bonusScore=0;
     public int currentScore;
     public int totalStage;
-    public int currentStage = 0;
+    public int currentStage = 1;
 
     [SerializeField] TMP_Text CurrentScoreText;
     [SerializeField] TMP_Text TotalScoreText;
@@ -24,7 +24,7 @@ public class ScoreSystem : MonoBehaviour
         //reset totalscore
         //PlayerPrefs.SetInt("TotalScore", 0);
         currentScore = 0;
-        currentStage = 0;
+        currentStage = 1;
         
         totalScore = PlayerPrefs.GetInt("TotalScore");
         totalStage = PlayerPrefs.GetInt("TotalStage");
@@ -34,7 +34,7 @@ public class ScoreSystem : MonoBehaviour
 
         EventManagerController.instance.HitWoodAction += AddPoints;
         EventManagerController.instance.BonusHitAction += AddBonusPoints;
-        EventManagerController.instance.RoundStartAction += AddStage;
+        EventManagerController.instance.RoundFinishedAction += AddStage;
 
     }
 
@@ -42,7 +42,7 @@ public class ScoreSystem : MonoBehaviour
     {
         EventManagerController.instance.HitWoodAction -= AddPoints;
         EventManagerController.instance.BonusHitAction -= AddBonusPoints;
-        EventManagerController.instance.RoundStartAction -= AddStage;
+        EventManagerController.instance.RoundFinishedAction -= AddStage;
     }
     public void AddPoints() {
 
@@ -57,7 +57,7 @@ public class ScoreSystem : MonoBehaviour
 
      
     }
-    public void AddBonusPoints()
+    public void AddBonusPoints(Object sender)
     {
         ++_instance.bonusScore;
         _instance.BonusScoreRext.SetText(_instance.bonusScore.ToString());
@@ -65,7 +65,7 @@ public class ScoreSystem : MonoBehaviour
     }
 
     public void ResetCurrentStage() {
-        _instance.currentStage=0;
+        _instance.currentStage=1;
     }
     public void AddStage()
     {
@@ -83,7 +83,13 @@ public class ScoreSystem : MonoBehaviour
     public int GetTotalScore() { 
         return _instance.totalScore;
     }
+    public int GetTotalBonus()
+    {
+        return _instance.bonusScore;
+    }
+    public int GetTotalStage()
+    {
+        return _instance.totalStage;
+    }
 
-
-    
 }

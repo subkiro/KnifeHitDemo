@@ -44,7 +44,7 @@ public class Obstacle : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Knife" && this.transform.tag!="Knife") {
-            EventManagerController.instance.BonusHit();
+            EventManagerController.instance.BonusHit(this);
             DestroySelf();
         }
     }
@@ -53,7 +53,7 @@ public class Obstacle : MonoBehaviour {
     {
         Destroy(this.gameObject, delay);
     }
-    public void DestroyEvent()
+    public void DestroyEvent(Object sender)
     {
         transform.SetParent(null);
         if (this.transform.tag == "Knife")

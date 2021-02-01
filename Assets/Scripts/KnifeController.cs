@@ -40,7 +40,7 @@ public class KnifeController : MonoBehaviour
     public void InitKnife()
     {
         ActiveKnife = Instantiate(KnifePrefab, KnifeContainer);
-
+        ActiveKnife.name = "Knife_" + knifeCounter;
        
     }
 
@@ -55,9 +55,12 @@ public class KnifeController : MonoBehaviour
         {
             Destroy(t.gameObject);
         }
-           
-     
-    
+        foreach (Transform t in KnifeContainer)
+        {
+            Destroy(t.gameObject);
+        }
+
+
     }
 
     public void DecreaseKnifes() {
@@ -67,8 +70,12 @@ public class KnifeController : MonoBehaviour
         if(countertoDelete < KnifeToggleContainer.childCount) { 
             KnifeToggleContainer.GetChild(countertoDelete).GetComponent<Toggle>().isOn = false;
         
-            InitKnife();
+            
             --knifeCounter;
+            if (knifeCounter != 0) {
+                InitKnife();
+            }
+          
         }
         if (knifeCounter == 0) {
             isReady = false;
@@ -101,12 +108,15 @@ public class KnifeController : MonoBehaviour
     {
         EventManagerController.instance.RoundStartAction += OnNewStage;
         EventManagerController.instance.LostAction += InteractionDisable;
+        EventManagerController.instance.HitWoodAction += DecreaseKnifes ;
+
     }
 
     private void OnDisable()
     {
         EventManagerController.instance.RoundStartAction -= OnNewStage;
         EventManagerController.instance.LostAction -= InteractionDisable;
+        EventManagerController.instance.HitWoodAction += DecreaseKnifes;
 
     }
 }

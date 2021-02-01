@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void Start() {
+
+        Menu.instance.ShowUI(2);
+    }
+
 
    
 }

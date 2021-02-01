@@ -19,7 +19,7 @@ public class EffectVfx : MonoBehaviour
         crashEffect.DOFade(0, 0.2f).From(.5f).SetEase(Ease.Flash).OnComplete(() => crashEffect.gameObject.SetActive(false));
         
     }
-    public void HitEffect()
+    public void HitEffect(Object sender)
     {
         CrashEffect();
         hitEffect.gameObject.SetActive(true);

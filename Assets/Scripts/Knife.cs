@@ -16,12 +16,12 @@ public class Knife : MonoBehaviour
     }
     public void Throw() {
         if (isAbaliable) {
+            DeactivateCollision(true, true);
             SoundManager.instance.PlayVFX("ThowSound1");
             float posYToMove = WoodCenterController.instance.transform.position.y - WoodCenterController.instance.fieldOfImpact;
             this.transform.DOMoveY(posYToMove, .1f).SetEase(Ease.InSine).SetId("Knife").OnComplete(()=>WoodCenterController.instance.wood.OnFinishHit(this));
             this.isAbaliable = false;
 
-            DeactivateCollision( true);
 
 
         }
@@ -44,18 +44,16 @@ public class Knife : MonoBehaviour
    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.transform.tag);
 
         if (collision.transform.tag == "Knife" && !isOnTheWood )
         {
-            Debug.Log("KnifeOnWood");
-            this.transform.DOKill();
+            
+            this.transform.DOKill(false);
 
             
             SoundManager.instance.PlayVFX("KnifeHit1");
 
-            EventManagerController.instance.Lost();
-            KnifeController.instance.DecreaseKnifes();
+            EventManagerController.instance.Lost(this);
 
             DeactivateCollision();
             rb.AddForce(Vector2.down*10);
@@ -66,7 +64,7 @@ public class Knife : MonoBehaviour
     }
 
 
-    public void DestroyEvent() {
+    public void DestroyEvent(Object sender) {
        transform.SetParent(null);
 
        DeactivateCollision();
@@ -84,7 +82,7 @@ public class Knife : MonoBehaviour
      
         Destroy(this.gameObject, delay);
     }
-    public void DestroyImidiate()
+    public void DestroyImidiate(Object sender)
     {
             Destroy(this.gameObject);
     }

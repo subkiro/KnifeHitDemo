@@ -26,12 +26,11 @@ public class WoodCenterObject : MonoBehaviour
     
 
     public void TriggerCounter() {
-        KnifeController.instance.DecreaseKnifes();
         --counter;
 
         if (counter <= 0)
         {
-            Destroy(this);
+            EventManagerController.instance.WoodBroke(this);
         }
 
 
@@ -47,16 +46,15 @@ public class WoodCenterObject : MonoBehaviour
     {
         
             SoundManager.instance.PlayVFX("HitSound"+Random.Range(1,4));
-            EventManagerController.instance.HitWood();
-            TriggerCounter();
-        
-            
+           
             OnHitVFX();
            
             knife.DeactivateCollision( true,false);
-            knife.isOnTheWood = true;
+           
             knife.transform.SetParent(this.transform);
-            
+            knife.isOnTheWood = true;
+            TriggerCounter();
+            EventManagerController.instance.HitWood(this);
 
 
     }
@@ -75,16 +73,26 @@ public class WoodCenterObject : MonoBehaviour
         
     }
 
-    private void OnDestroy()
+    public void OnDestroyBroke()
     {
         transform.DOKill();
-      
-        EventManagerController.instance.WoodBroke();
         SoundManager.instance.PlayVFX("ExplodeSound1");
-        // EventManagerController.instance.ClearTrush();
+        EventManagerController.instance.RoundFinished(this);
         Destroy(gameObject);
 
     }
+    public void DeactivateCollider()
+    {
 
-   
+       
+    }
+    private void OnEnable()
+    {
+        EventManagerController.instance.LostAction += DeactivateCollider;
+    }
+    private void OnDisable()
+    {
+        EventManagerController.instance.LostAction -= DeactivateCollider;
+    }
+    
 }

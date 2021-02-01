@@ -11,11 +11,11 @@ public class EventManagerController : MonoBehaviour
 
     public UnityAction RoundFinishedAction;
     public UnityAction RoundStartAction;
-    public UnityAction ClearAllTrushAction;
+    public UnityAction<Object> ClearAllTrushAction;
     public UnityAction LostAction;
-    public UnityAction BonusHitAction;
+    public UnityAction<Object> BonusHitAction;
     public UnityAction HitWoodAction;
-    public UnityAction WoodBrokeAction;
+    public UnityAction<Object> WoodBrokeAction;
     private void Awake()
     {
         instance = this;
@@ -26,42 +26,42 @@ public class EventManagerController : MonoBehaviour
     {
         
     }
-    public void RoundFinished() {
-        Debug.Log("RoundFinished");
+    public void RoundFinished(Object sender) {
+        Debug.Log(sender.name + " --- RoundFinished");
         RoundFinishedAction?.Invoke();
     }
-    public void RoundStart()
+    public void RoundStart(Object sender)
     {
-        Debug.Log("RoundStart");
+        Debug.Log(sender.name + " --- RoundStart");
         RoundStartAction?.Invoke();
     }
 
-    public void ClearTrush()
+    public void ClearTrush(Object sender)
     {
-        Debug.Log("ClearTrush");
-        ClearAllTrushAction?.Invoke();
+        Debug.Log(sender.name + " --- ClearTrush");
+        ClearAllTrushAction?.Invoke(this);
     }
-    public void Lost()
+    public void Lost(Object sender)
     {
-        Debug.Log("Round Lost");
+        Debug.Log(sender.name + " --- Round Lost");
         LostAction?.Invoke();
     }
 
-    public void BonusHit() {
-        Debug.Log("BonusHit");
-        BonusHitAction?.Invoke();
+    public void BonusHit(Object sender) {
+        Debug.Log(sender.name + " --- BonusHit");
+        BonusHitAction?.Invoke(this);
     }
 
 
-    public void HitWood()
+    public void HitWood(Object sender)
     {
-        Debug.Log("HitWood");
+        Debug.Log(sender.name + " --- HitWood");
         HitWoodAction?.Invoke();
 
     }  
-    public void WoodBroke()
+    public void WoodBroke(Object sender)
         {
-        Debug.Log("WoodBroke");
-        WoodBrokeAction?.Invoke();
+        Debug.Log(sender.name+" --- WoodBroke");
+        WoodBrokeAction?.Invoke(this);
         }
     }

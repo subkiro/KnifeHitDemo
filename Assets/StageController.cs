@@ -8,29 +8,32 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] Image[] bullets;
     [SerializeField] TMP_Text stageNumText;
+    public int stageBullet = 0;
+    public static StageController instance;
+
+    void Awake() {
+        instance = this;
+    }
+    // Update is called once per frame
     void Start()
     {
-       
-
+        Init();
     }
-
-    // Update is called once per frame
-   
 
     private void Init()
     {
         int stage = ScoreSystem._instance.currentStage;
-        ++stage;
+        
         stageNumText.text = "STAGE " + stage.ToString();
-        SetBullets(stage);
+        SetBullets(stage-1);
     }
 
     private void SetBullets (int stage){
         
-        Debug.Log(stage);
+        Debug.Log("Stage is:  "+stage);
         for (int i = 0; i < bullets.Length; i++)
         {
-            if (i < stage % bullets.Length)
+            if (i <= (stage)% bullets.Length)
             {
                 bullets[i].color = Color.red;
             }
@@ -38,7 +41,7 @@ public class StageController : MonoBehaviour
                 bullets[i].color = Color.white;
             }
         }
-        
+        stageBullet = (stage % bullets.Length);
     }
 
     

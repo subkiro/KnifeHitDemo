@@ -27,6 +27,7 @@ public class WoodCenterController : MonoBehaviour
         EventManagerController.instance.WoodBrokeAction += ExplodeWood;
         EventManagerController.instance.RoundStartAction += Init;
         EventManagerController.instance.LostAction += DeleteWood;
+        EventManagerController.instance.RoundFinishedAction += ShowStagePass;
     }
 
     public void Init()
@@ -39,13 +40,25 @@ public class WoodCenterController : MonoBehaviour
     }
 
 
-   
+    public void ShowStagePass() {
+        if (StageController.instance.stageBullet+1 == 4)
+        {
+            Camera.main.transform.DOShakeScale(1).OnComplete(() => Menu.instance.ShowUI(1)); //Finish 4th stage
+        }
+        else
+        {
+            Camera.main.transform.DOShakeScale(1).OnComplete(() => { EventManagerController.instance.RoundStart(this); });
+        }
+    }
 
 
-    public void ExplodeWood() {
+    public void ExplodeWood(Object sender) {
 
         Instantiate(WoodFracturedPrefab, this.transform);
-        Camera.main.transform.DOShakeScale(1).OnComplete(() => Menu.instance.ShowUI(0));
+        wood.OnDestroyBroke();
+
+        
+        
 
 
     }
@@ -124,6 +137,7 @@ public class WoodCenterController : MonoBehaviour
         EventManagerController.instance.WoodBrokeAction -= ExplodeWood;
         EventManagerController.instance.RoundStartAction -= Init;
         EventManagerController.instance.LostAction -= DeleteWood;
+        EventManagerController.instance.RoundFinishedAction -= ShowStagePass;
     }
     private void OnDrawGizmos()
     {
