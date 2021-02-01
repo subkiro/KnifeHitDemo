@@ -7,7 +7,7 @@ public class Obstacle : MonoBehaviour {
 
     public string id;
     public string name;
-    private GameObject VFX_Explosion;
+    public GameObject VFX_Explosion;
   
 
 
@@ -56,16 +56,18 @@ public class Obstacle : MonoBehaviour {
     public void DestroyEvent(Object sender)
     {
         transform.SetParent(null);
-        if (this.transform.tag == "Knife")
-        {           
+
+       
             Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
             rb.AddTorque(Random.Range(-360, 360) * 0.01f, ForceMode2D.Impulse);
             rb.AddForce(new Vector2(Random.Range(0, 1), Random.Range(0, 1)) * 10f, ForceMode2D.Impulse);
             rb.AddForce((transform.position - WoodCenterController.instance.transform.position).normalized * 200);
-        }
+
+
+            DeactivateCollision(false);
+
+            this.DestroyAfterDelay(3f);
        
-        DeactivateCollision(false);
-        this.DestroyAfterDelay(3f);
 
     }
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   Name: Apple
-  SpownChance: 25
+  SpownChance: 50
   Prefab: {fileID: 253147452248190024, guid: ec9d35ab6006f284f896581e49ee98ea, type: 3}
   VFX_Explosion: {fileID: 877635044279737323, guid: 00905747e853cbf42a4eeeed7b3a0081, type: 3}

@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public int MaxHit = 8;
     public int stage = 0;
 
+
+
+    public bool vibrationOn = false;
+
     private void Awake()
     {
        
@@ -17,10 +21,24 @@ public class GameManager : MonoBehaviour
 
 
     private void Start() {
-
+        Vibration.Init();
+        vibrationOn = PlayerPrefs.GetInt("Vibration", 0) > 0;
+        
         Menu.instance.ShowUI(2);
     }
 
-
-   
+    public void VibrationTrigger(bool isOn) {
+        if (isOn)
+        {
+            PlayerPrefs.SetInt("Vibration", 1);
+            vibrationOn = true;
+            Vibration.VibratePeek();
+            Debug.Log("test");
+        }
+        else {
+            PlayerPrefs.SetInt("Vibration", 0);
+            vibrationOn = false;
+        }
+    }
+  
 }

@@ -18,7 +18,7 @@ public class FinishStage_UI : MonoBehaviour
     {
 
         this.knifes.text = ScoreSystem._instance.currentScore.ToString();
-        this.stage.text = ScoreSystem._instance.currentStage.ToString();
+        this.stage.text = (ScoreSystem._instance.currentStage-1).ToString();
 
     }
 

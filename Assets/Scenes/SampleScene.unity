@@ -1680,7 +1680,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &556692599
 GameObject:
   m_ObjectHideFlags: 0
@@ -8956,6 +8956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHit: 8
   stage: 0
+  vibrationOn: 0
 --- !u!4 &1756824770
 Transform:
   m_ObjectHideFlags: 0
@@ -9266,6 +9267,8 @@ MonoBehaviour:
   stage: {fileID: 861501656}
   BONUS: {fileID: 1729747300}
   NextButton: {fileID: 1273476992}
+  vibration: {fileID: 534380460}
+  sound: {fileID: 1202066520}
 --- !u!114 &1832866957
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,6 +55,11 @@ public class EventManagerController : MonoBehaviour
 
     public void HitWood(Object sender)
     {
+        if (GameManager.instance.vibrationOn) {
+            Vibration.VibratePeek();
+        }
+        
+
         Debug.Log(sender.name + " --- HitWood");
         HitWoodAction?.Invoke();
 
