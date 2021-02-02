@@ -10,6 +10,7 @@ public class WoodCenterController : MonoBehaviour
     [SerializeField] public GameObject WoodFracturedPrefab;
     [SerializeField] private ArrayScriptable BonusObstacleList;
     [SerializeField] private ArrayScriptable KnifesObstacleList;
+    [SerializeField] private GameObject HitEffectParticle;
     public float fieldOfImpact = 1.22f;
     public WoodCenterObject wood;
     public static WoodCenterController instance;
@@ -30,6 +31,8 @@ public class WoodCenterController : MonoBehaviour
         EventManagerController.instance.RoundStartAction += Init;
         EventManagerController.instance.LostAction += DeleteWood;
         EventManagerController.instance.RoundFinishedAction += ShowStagePass;
+        EventManagerController.instance.HitWoodAction += ShowParticleOnHitWood;
+
     }
 
     public void Init()
@@ -108,7 +111,7 @@ public class WoodCenterController : MonoBehaviour
 
 
         int levelOfDifficulty = StageController.instance.stageBullet;
-        int[] randArray = Subkiro.GetRandomArray(Random.Range(minApples+minKnifes+ levelOfDifficulty, maxApple+maxKnifes+ levelOfDifficulty*2), pos.Length);
+        int[] randArray = Subkiro.GetRandomArray(Random.Range(minApples+minKnifes+ Random.Range(0,levelOfDifficulty), maxApple+maxKnifes+ Random.Range(0, levelOfDifficulty) * 2), pos.Length);
         
 
 
@@ -147,7 +150,14 @@ public class WoodCenterController : MonoBehaviour
         EventManagerController.instance.RoundStartAction -= Init;
         EventManagerController.instance.LostAction -= DeleteWood;
         EventManagerController.instance.RoundFinishedAction -= ShowStagePass;
+        EventManagerController.instance.HitWoodAction -= ShowParticleOnHitWood;
     }
+
+    private void ShowParticleOnHitWood()
+    {
+        GameObject particle = Instantiate(HitEffectParticle, new Vector3(0,this.transform.position.y- fieldOfImpact, 1), Quaternion.identity);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

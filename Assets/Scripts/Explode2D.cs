@@ -24,7 +24,8 @@ public class Explode2D : MonoBehaviour
             if (rb != null)
             {
                 rb.AddForce((rb.transform.position - this.transform.position).normalized * 200);
-                 
+                rb.AddTorque(Random.Range(-360, 360) * 0.01f, ForceMode2D.Impulse);
+
             }
 
 

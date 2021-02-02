@@ -33,7 +33,8 @@ public class ScoreSystem : MonoBehaviour
         bonusScore = PlayerPrefs.GetInt("Bonus");
 
         _instance.TotalScoreText.SetText(totalScore.ToString());
-
+        _instance.BonusScoreRext.SetText(bonusScore.ToString());
+        
         EventManagerController.instance.HitWoodAction += AddPoints;
         EventManagerController.instance.BonusHitAction += AddBonusPoints;
         EventManagerController.instance.RoundFinishedAction += AddStage;
@@ -69,8 +70,12 @@ public class ScoreSystem : MonoBehaviour
 
     public void ResetCurrentStage() {
         _instance.currentStage=1;
+
         _instance.currentScore = 0;
+        _instance.CurrentScoreText.SetText(_instance.currentScore.ToString());
+
         _instance.curretnBonus = 0;
+
     }
 
     

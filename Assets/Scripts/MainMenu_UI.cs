@@ -15,6 +15,15 @@ public class MainMenu_UI : MonoBehaviour
         NextButton.onClick.AddListener(Continue);
         Init();
     }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
     public void Init()
     {
 
@@ -22,6 +31,7 @@ public class MainMenu_UI : MonoBehaviour
         this.stage.text = ScoreSystem._instance.GetTotalStage().ToString();
         this.BONUS.text = ScoreSystem._instance.GetTotalBonus().ToString();
         InitVibrationToggle();
+        InitSoundToggle();
     }
 
     void Continue()
@@ -43,5 +53,9 @@ public class MainMenu_UI : MonoBehaviour
         vibration.isOn = GameManager.instance.vibrationOn;
         vibration.onValueChanged.AddListener((bool On) => GameManager.instance.VibrationTrigger(On));
     }
-    
+    public void InitSoundToggle()
+    {
+        sound.isOn = GameManager.instance.soundOn;
+        sound.onValueChanged.AddListener((bool On) => GameManager.instance.SoundTrigger(On));
+    }
 }

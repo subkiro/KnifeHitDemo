@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1369144336495543133}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.27, y: 0.27, z: 0.5}
+  m_LocalScale: {x: 0.26, y: 0.26, z: 1}
   m_Children: []
   m_Father: {fileID: 6828532360912673302}
   m_RootOrder: 0
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97387eb224ff8a548924a1ab842b534f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfImpact: 1.22
   forceOnExplode: 20
   counter: 0
   hitWood: {fileID: 109158537014816922}

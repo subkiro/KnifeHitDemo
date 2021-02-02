@@ -23,6 +23,7 @@ public class Expolde3D : MonoBehaviour
             if (rb != null)
             {
                 rb.AddExplosionForce(Random.Range(minForce, maxForce), transform.position + offcet, radius);
+                rb.AddTorque(Vector3.one*Random.Range(-360,360)*0.01f, ForceMode.Impulse);
             }
 
             

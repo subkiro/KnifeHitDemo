@@ -16,9 +16,11 @@ public class GameManager : MonoBehaviour
     public int maxKnifeSpawn = 3;
     public int maxAppleSpawn = 1;
 
+    [Header("Settomgs")]
 
     public bool vibrationOn = false;
-
+    public bool soundOn = false;
+    [SerializeField] private AudioSource audioSource;
     private void Awake()
     {
        
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour
     private void Start() {
         Vibration.Init();
         vibrationOn = PlayerPrefs.GetInt("Vibration", 0) > 0;
-        
+        soundOn = PlayerPrefs.GetInt("Sound", 1) > 0;
+        SoundTrigger(soundOn);
         Menu.instance.ShowUI(2);
     }
 
@@ -46,5 +49,25 @@ public class GameManager : MonoBehaviour
             vibrationOn = false;
         }
     }
-  
+
+
+    public void SoundTrigger(bool isOn)
+    {
+        if (isOn)
+        {
+            PlayerPrefs.SetInt("Sound", 1);
+            soundOn = true;
+            audioSource.enabled = soundOn;
+
+
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Sound", 0);
+            soundOn = false;
+            audioSource.enabled = soundOn;
+
+        }
+    }
+
 }

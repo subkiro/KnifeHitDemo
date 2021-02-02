@@ -43,7 +43,7 @@ public class Obstacle : MonoBehaviour {
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Knife" && this.transform.tag!="Knife") {
+        if (collision.transform.tag == "Knife" && this.transform.tag!="Knife" && collision.transform.GetComponent<Knife>()!=null) {
             EventManagerController.instance.BonusHit(this);
             DestroySelf();
         }

@@ -29,8 +29,27 @@ public class WoodCenterObject : MonoBehaviour
         float randSpeed = Random.Range(4f, 6f);
         // Ease[] e = new Ease[] { Ease.Flash, Ease.InBounce, Ease.InOutElastic, Ease.InOutBounce, Ease.InSine };
         int randRotDir = (Random.Range(0,100) <= 50) ? -1 : 1;
-        
-        this.transform.DORotate(new Vector3(0, 0, 360*randRotDir), randSpeed+level, RotateMode.FastBeyond360).SetLoops(Random.Range(1,3)).SetEase(Ease.InOutSine).OnComplete(RandomRotation);
+
+        int r = Random.Range(0,5);
+        Ease e ;
+
+        switch (r)
+        {
+            case 0:
+                { e = Ease.Linear;    break; }
+            case 1:
+                { e = Ease.InOutSine; break; }
+            case 2:
+                { e = Ease.InOutBack; break; }
+           
+
+            default:
+                { e = Ease.InOutSine; break; }
+               
+        }
+
+
+        this.transform.DORotate(new Vector3(0, 0, 360*randRotDir), randSpeed+(4-level), RotateMode.FastBeyond360).SetLoops(Random.Range(1,3)).SetEase(e).OnComplete(RandomRotation);
 
     }
 
@@ -65,7 +84,12 @@ public class WoodCenterObject : MonoBehaviour
             knife.transform.SetParent(this.transform);
             knife.isOnTheWood = true;
             TriggerCounter();
-            EventManagerController.instance.HitWood(this);
+           
+            if (GameManager.instance.vibrationOn)
+            {
+                Vibration.Vibrate(5);
+            }
+        EventManagerController.instance.HitWood(this);
 
 
     }
@@ -89,6 +113,17 @@ public class WoodCenterObject : MonoBehaviour
         transform.DOKill();
         SoundManager.instance.PlayVFX("ExplodeSound1");
         EventManagerController.instance.RoundFinished(this);
+        if (GameManager.instance.vibrationOn)
+        {
+
+            long[] longs = new long[] { Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50) };
+
+            Debug.Log(longs.Length);
+            //Vibration.Vibrate ( longs, int.Parse ( inputRepeat.text ) );
+
+            Vibration.Vibrate(longs, -1);
+        }
+       
         Destroy(gameObject);
 
     }
