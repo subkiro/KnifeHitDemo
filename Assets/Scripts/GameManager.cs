@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     public int MaxHit = 8;
     public int stage = 0;
 
+    [Header("Spawn Settings")]
+
+    public int minKnifeSpawn = 1;
+    public int minAppleSpawn = 1;
+    public int maxKnifeSpawn = 3;
+    public int maxAppleSpawn = 1;
 
 
     public bool vibrationOn = false;

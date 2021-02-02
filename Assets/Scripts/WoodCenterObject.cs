@@ -15,13 +15,24 @@ public class WoodCenterObject : MonoBehaviour
     // Update is called once per frame
     public void Init( float RotSpeed = 5f, DG.Tweening.RotateMode RotateMode =RotateMode.FastBeyond360) {
        
-        counter = GameManager.instance.MaxHit;
-        this.transform.DORotate(new Vector3(0,0, 360), RotSpeed, RotateMode).SetLoops(-1).SetEase(Ease.Linear);
+
+
+        counter = KnifeController.instance.knifeCounter;
+        RandomRotation();
+       // this.transform.DORotate(new Vector3(0,0, 360), RotSpeed, RotateMode).SetLoops(-1).SetEase(Ease.Linear);
         transform.DOScale(Vector3.one, 0.2f).From(Vector3.one*0.1f).OnComplete(()=>SoundManager.instance.PlayVFX("HitSound4"));
     }
 
 
-    
+    public void RandomRotation() {
+        int level = StageController.instance.stageBullet;
+        float randSpeed = Random.Range(4f, 6f);
+        // Ease[] e = new Ease[] { Ease.Flash, Ease.InBounce, Ease.InOutElastic, Ease.InOutBounce, Ease.InSine };
+        int randRotDir = (Random.Range(0,100) <= 50) ? -1 : 1;
+        
+        this.transform.DORotate(new Vector3(0, 0, 360*randRotDir), randSpeed+level, RotateMode.FastBeyond360).SetLoops(Random.Range(1,3)).SetEase(Ease.InOutSine).OnComplete(RandomRotation);
+
+    }
 
     
 

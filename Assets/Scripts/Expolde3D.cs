@@ -15,6 +15,7 @@ public class Expolde3D : MonoBehaviour
         Explode();
     }
     public void Explode() {
+        transform.Rotate(0, 0, Random.Range(0, 180));
         foreach (Transform t in transform)
         {
             Rigidbody rb = t.GetComponent<Rigidbody>();

@@ -11,6 +11,7 @@ public class ScoreSystem : MonoBehaviour
     public int currentScore;
     public int totalStage;
     public int currentStage = 1;
+    public int curretnBonus = 0;
 
     [SerializeField] TMP_Text CurrentScoreText;
     [SerializeField] TMP_Text TotalScoreText;
@@ -25,7 +26,8 @@ public class ScoreSystem : MonoBehaviour
         //PlayerPrefs.SetInt("TotalScore", 0);
         currentScore = 0;
         currentStage = 1;
-        
+        curretnBonus = 0;
+
         totalScore = PlayerPrefs.GetInt("TotalScore");
         totalStage = PlayerPrefs.GetInt("TotalStage");
         bonusScore = PlayerPrefs.GetInt("Bonus");
@@ -59,6 +61,7 @@ public class ScoreSystem : MonoBehaviour
     }
     public void AddBonusPoints(Object sender)
     {
+        ++curretnBonus;
         ++_instance.bonusScore;
         _instance.BonusScoreRext.SetText(_instance.bonusScore.ToString());
         PlayerPrefs.SetInt("Bonus", _instance.bonusScore);
@@ -66,7 +69,11 @@ public class ScoreSystem : MonoBehaviour
 
     public void ResetCurrentStage() {
         _instance.currentStage=1;
+        _instance.currentScore = 0;
+        _instance.curretnBonus = 0;
     }
+
+    
     public void AddStage()
     {
         ++_instance.currentStage;

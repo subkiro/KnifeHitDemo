@@ -25,7 +25,7 @@ public class RestrtUI : MonoBehaviour
         
         this.knifes.text = ScoreSystem._instance.currentScore.ToString();
         this.stage.text = ScoreSystem._instance.currentStage.ToString();
-        this.bonus.text = ScoreSystem._instance.bonusScore.ToString();
+        this.bonus.text = ScoreSystem._instance.curretnBonus.ToString();
     }
 
     void Restart() {

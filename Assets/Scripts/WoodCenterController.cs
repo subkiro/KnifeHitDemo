@@ -16,6 +16,8 @@ public class WoodCenterController : MonoBehaviour
     private GameObject spawnObj;
     private void Awake()
     {
+        if (instance != null) { Destroy(instance.gameObject); }
+
         instance = this;
         
     }
@@ -97,9 +99,16 @@ public class WoodCenterController : MonoBehaviour
 
         GameObject woodObj = Instantiate(WoodCenter, this.transform);
         wood = woodObj.GetComponent<WoodCenterObject>();
-        
 
-        int[] randArray = Subkiro.GetRandomArray(Random.Range(2, 4), pos.Length);
+        int minKnifes = GameManager.instance.minKnifeSpawn;
+        int minApples = GameManager.instance.minAppleSpawn;
+
+        int maxKnifes = GameManager.instance.maxKnifeSpawn;
+        int maxApple = GameManager.instance.maxAppleSpawn;
+
+
+        int levelOfDifficulty = StageController.instance.stageBullet;
+        int[] randArray = Subkiro.GetRandomArray(Random.Range(minApples+minKnifes+ levelOfDifficulty, maxApple+maxKnifes+ levelOfDifficulty*2), pos.Length);
         
 
 
@@ -110,7 +119,7 @@ public class WoodCenterController : MonoBehaviour
         {
            
 
-            if ( i==0) {
+            if ( i<maxApple) {
                 spawnObj = AllObstaclesBonus[0].InitializeMyGem(true);
             } else {
                 spawnObj = AllObstaclesKnifes[0].InitializeMyGem();

@@ -14,7 +14,7 @@ public class KnifeController : MonoBehaviour
  
     private GameObject ActiveKnife;
     private bool isReady = false;
-    private int knifeCounter;
+    public int knifeCounter;
 
 
     public static KnifeController instance;
@@ -90,7 +90,7 @@ public class KnifeController : MonoBehaviour
         TapButton.interactable = true;
         InitKnife();
 
-        knifeCounter = GameManager.instance.MaxHit;
+        knifeCounter = GameManager.instance.MaxHit - (StageController.instance.stageBullet) + Random.Range(-2,2);
 
         for (int i = 0; i < knifeCounter; i++)
         {

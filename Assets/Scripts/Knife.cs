@@ -59,6 +59,10 @@ public class Knife : MonoBehaviour
             rb.AddForce(Vector2.down*10);
             this.rb.gravityScale = 1;
             this.rb.AddTorque(Random.Range(-360, 360) * 0.1f, ForceMode2D.Impulse);
+            if (GameManager.instance.vibrationOn)
+            {
+                Vibration.VibratePeek();
+            }
 
         }
     }
