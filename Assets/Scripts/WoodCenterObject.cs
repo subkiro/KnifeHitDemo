@@ -66,12 +66,6 @@ public class WoodCenterObject : MonoBehaviour
 
     }
 
-
-
-
-
-    
-
     public void OnFinishHit(Knife knife)
     {
         

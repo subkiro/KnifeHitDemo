@@ -18,9 +18,6 @@ public class Menu : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-    }
     public void ShowUI(int indexToShow) {
         if (ActiveUI != null)
         {

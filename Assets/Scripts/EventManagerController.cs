@@ -7,7 +7,7 @@ public class EventManagerController : MonoBehaviour
 {
 
     public static EventManagerController instance;
-  
+
 
     public UnityAction RoundFinishedAction;
     public UnityAction RoundStartAction;
@@ -21,12 +21,8 @@ public class EventManagerController : MonoBehaviour
         instance = this;
     }
 
-
-    private void Start()
+    public void RoundFinished(Object sender)
     {
-        
-    }
-    public void RoundFinished(Object sender) {
         Debug.Log(sender.name + " --- RoundFinished");
         RoundFinishedAction?.Invoke();
     }
@@ -47,24 +43,20 @@ public class EventManagerController : MonoBehaviour
         LostAction?.Invoke();
     }
 
-    public void BonusHit(Object sender) {
+    public void BonusHit(Object sender)
+    {
         Debug.Log(sender.name + " --- BonusHit");
         BonusHitAction?.Invoke(this);
     }
 
-
     public void HitWood(Object sender)
     {
-        
-        
-
         Debug.Log(sender.name + " --- HitWood");
         HitWoodAction?.Invoke();
-
-    }  
-    public void WoodBroke(Object sender)
-        {
-        Debug.Log(sender.name+" --- WoodBroke");
-        WoodBrokeAction?.Invoke(this);
-        }
     }
+    public void WoodBroke(Object sender)
+    {
+        Debug.Log(sender.name + " --- WoodBroke");
+        WoodBrokeAction?.Invoke(this);
+    }
+}
